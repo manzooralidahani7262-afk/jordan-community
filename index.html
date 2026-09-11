@@ -1,45 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jordan Community Updates - Official</title>
-    <meta name="description" content="Join Jordan Community Updates for Market Updates and Discussion">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: #000; 
-            color: white; 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            padding: 20px;
-        }
-        .container { 
-            border: 3px solid #FFD700; 
-            padding: 45px 30px; 
-            border-radius: 22px; 
-            background: #0a0a0a; 
-            max-width: 480px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.25);
-        }
-        h1 { 
-            color: #FFD700; 
-            font-size: 30px; 
-            margin-bottom: 20px; 
-            font-weight: 700;
-            line-height: 1.3;
-        }
-        .description { 
-            color: #cccccc; 
-            margin: 20px 0 30px 0; 
-            line-height: 1.8; 
-            font-size: 16px; 
-        }
-        .button { 
-            display: block; 
-            background: linear-gradient(90deg, #FFD700, #FFA500); 
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.ext import Updater, CommandHandler, CallbackContext
+
+CHANNEL_LINK = "https://t.me/JordanCommunityUpdates" # اپنا چینل
+
+def start(update: Update, context: CallbackContext):
+    if context.args and context.args[0] == "join":
+        keyboard = [[InlineKeyboardButton("✅ Join Jordan Community Updates", url=CHANNEL_LINK)]]
+        update.message.reply_text(
+            "Welcome! Click below to join our Official Channel:",
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        )
+
+updater = Updater("YOUR_BOT_TOKEN", use_context=True)
+updater.dispatcher.add_handler(CommandHandler("start", start))
+updater.start_polling()
