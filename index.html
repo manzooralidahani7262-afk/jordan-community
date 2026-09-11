@@ -1,15 +1,12 @@
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Updater, CommandHandler
 
-CHANNEL_LINK = "https://t.me/JordanCommunityUpdates" # اپنا چینل
+CHANNEL = "https://t.me/JordanCommunityUpdates"
 
-def start(update: Update, context: CallbackContext):
+def start(update, context):
     if context.args and context.args[0] == "join":
-        keyboard = [[InlineKeyboardButton("✅ Join Jordan Community Updates", url=CHANNEL_LINK)]]
-        update.message.reply_text(
-            "Welcome! Click below to join our Official Channel:",
-            reply_markup=InlineKeyboardMarkup(keyboard)
-        )
+        keyboard = [[InlineKeyboardButton("✅ Join Jordan Community Now", url=CHANNEL)]]
+        update.message.reply_text("Welcome! Tap below to join:", reply_markup=InlineKeyboardMarkup(keyboard))
 
 updater = Updater("YOUR_BOT_TOKEN", use_context=True)
 updater.dispatcher.add_handler(CommandHandler("start", start))
